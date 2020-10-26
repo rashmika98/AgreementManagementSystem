@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Querys>
+
+<query id="create_record_table">
+
+<!-- Create table record -->
+<![CDATA[
+			CREATE TABLE records (
+				Identification varchar(20),
+				ID varchar(15),
+			    Firstname varchar(20),
+			    Lastname varchar(20),
+			    Company varchar(25),
+			    phone varchar(20),
+			    Email varchar(20),
+			    Address varchar(20),
+			    Username varchar(20),
+			    Password varchar(20),
+			    file mediumblob,
+			    
+			    constraint PK_NewReocrd PRIMARY KEY (Identification)
+			)
+		]]>
+</query>
+
+
+<!-- Drop table record -->
+<query id="drop_record">
+
+<![CDATA[
+			drop table if exists records
+		]]>
+</query>
+
+
+
+<!-- Insert into Users Query -->
+<query id="insert_records">
+
+<![CDATA[
+			insert into records(Identification, ID, Firstname, Lastname, Company, phone, Email, Address, Username,Password, file) 
+			values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		]]>
+</query>
+
+
+<!-- Get pickup IDs Query -->
+<query id="record_ids">
+	<![CDATA[        
+		select r.Identification from records as r
+	]]>
+</query>
+
+
+<!-- Select a particular pickup by id Query -->
+	<query id="record_by_id">
+         <![CDATA[        
+            select * from records where records.Identification = ?
+        ]]>
+	</query>
+	
+
+<!-- Select all pickups -->
+	<query id="all_records">
+         <![CDATA[        
+            select * from records
+        ]]>
+	</query>
+
+
+</Querys>
