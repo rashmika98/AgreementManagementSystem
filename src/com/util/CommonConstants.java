@@ -76,6 +76,12 @@ public class CommonConstants {
 	/** Constant for Column index two */
 	public static final int COLUMN_INDEX_ELEVEN = 11;
 	
+	/** Constant for Column index two */
+	public static final int COLUMN_INDEX_TWELVE = 12;
+
+	/** Constant for Column index two */
+	public static final int COLUMN_INDEX_THIRTEEN = 13;
+	
 	
 	/** Constant for query id of drop_table in Query.xml */
 	public static final String QUERY_ID_DROP_TABLE_RECORD = "drop_record";
@@ -98,5 +104,8 @@ public class CommonConstants {
 	public static final String QUERY_ID_ALL_RECORDS = "all_records";
 	
 	
+
+	/** Constant for query id of update a file in Query.xml */
+	public static final String QUERY_ID_UPDATE_RECORD = "update_record";
 	
 }

@@ -47,16 +47,20 @@ response.setContentType("text/html");
 		try {
 			String email = (request.getParameter("email"));
 			String pass = (request.getParameter("pass"));
+			System.out.println(pass);
 			
-			String recordID = pass.substring(0, 1);
+			String recordID = pass.substring(0, 5);
 			IRecords iRecords = new Records();
+			System.out.println(".....................");
 			NewRecord record = iRecords.getRecordByID(recordID);
 			System.out.println(recordID);
+			System.out.println(".....................");
 			System.out.println(record.getEmail());
+			System.out.println(",,,,,,,,,,,,,,,,,,,,,,,,");
 			
 			
-			
-				if(email.equals("admin@evigilant.com") && pass.equals("kani&gobi"))
+			System.out.println(pass);
+				if(email.equals("admin@evigilant.com") && pass.equals("00001101942"))
 				{
 					
 //					response.sendRedirect("AdminForm.jsp");
@@ -68,8 +72,22 @@ response.setContentType("text/html");
 				{
 					request.setAttribute("record", record);
 //					response.sendRedirect("ClientForm.jsp");
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ClientForm.jsp");
-					dispatcher.forward(request, response);
+					/*
+					 * RequestDispatcher dispatcher =
+					 * getServletContext().getRequestDispatcher("/ClientForm.jsp");
+					 * dispatcher.forward(request, response);
+					 */
+					
+					String status = "-";
+					
+					if (record.getStatus().equals(status)) {
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ClientForm.jsp");
+						dispatcher.forward(request, response);
+					}
+					else {
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ClientSummary.jsp");
+						dispatcher.forward(request, response);
+					}
 					
 				}
 				else
@@ -77,7 +95,7 @@ response.setContentType("text/html");
 					
 					
 					System.out.println("Invalid username or password");
-					response.sendRedirect("Login.jsp");
+					response.sendRedirect("Login1.jsp");
 				}
 		}	
 		catch(Exception e) 

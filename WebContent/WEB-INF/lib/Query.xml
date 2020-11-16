@@ -9,7 +9,7 @@
 <![CDATA[
 			CREATE TABLE records (
 				Identification varchar(20),
-				ID varchar(15),
+                ID varchar(15),
 			    Firstname varchar(20),
 			    Lastname varchar(20),
 			    Company varchar(25),
@@ -19,6 +19,8 @@
 			    Username varchar(20),
 			    Password varchar(20),
 			    file mediumblob,
+                Status varchar(10),
+                reason varchar(500),
 			    
 			    constraint PK_NewReocrd PRIMARY KEY (Identification)
 			)
@@ -40,8 +42,8 @@
 <query id="insert_records">
 
 <![CDATA[
-			insert into records(Identification, ID, Firstname, Lastname, Company, phone, Email, Address, Username,Password, file) 
-			values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+			insert into records(Identification, ID, Firstname, Lastname, Company, phone, Email, Address, Username,Password, file, Status, reason) 
+			values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 		]]>
 </query>
 
@@ -69,5 +71,12 @@
         ]]>
 	</query>
 
-
+<!-- update Status -->
+	<query id = "update_record">
+		<![CDATA[
+			update records
+			set records.Status = ?, records.reason = ?
+			where records.Identification = ?
+		]]>
+</query>
 </Querys>

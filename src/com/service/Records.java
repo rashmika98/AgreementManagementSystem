@@ -10,9 +10,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
@@ -36,7 +44,7 @@ public class Records implements IRecords {
 
 	static{
 		//create table or drop if exist
-		//createLockerTable();
+		//createRecordTable();
 	}
 	private PreparedStatement preparedStatement;
 
@@ -60,7 +68,7 @@ public class Records implements IRecords {
 	 *             - Service is not available
 	 * 
 	 */
-	public static void createLockerTable() {
+	public static void createRecordTable() {
 
 		try {
 			connection = connectionDB.getConnection();
@@ -142,6 +150,8 @@ public class Records implements IRecords {
 			  preparedStatement.setString(CommonConstants.COLUMN_INDEX_NINE, record.getUsername());
 			  preparedStatement.setString(CommonConstants.COLUMN_INDEX_TEN , record.getPassword());
 			  preparedStatement.setBinaryStream(CommonConstants.COLUMN_INDEX_ELEVEN , record.getFile());
+			  preparedStatement.setString(CommonConstants.COLUMN_INDEX_TWELVE , record.getStatus());
+			  preparedStatement.setString(CommonConstants.COLUMN_INDEX_THIRTEEN , record.getReason());
 		
 			// Add record
 			preparedStatement.execute();
@@ -321,6 +331,8 @@ public class Records implements IRecords {
 				record.setUsername(resultSet.getString(CommonConstants.COLUMN_INDEX_NINE));
 				record.setPassword(resultSet.getString(CommonConstants.COLUMN_INDEX_TEN));
 				record.setFile(resultSet.getBinaryStream(CommonConstants.COLUMN_INDEX_ELEVEN));
+				record.setStatus(resultSet.getString(CommonConstants.COLUMN_INDEX_TWELVE));
+				record.setReason(resultSet.getString(CommonConstants.COLUMN_INDEX_THIRTEEN));
 				recordList.add(record);
 		
 			}
@@ -346,6 +358,99 @@ public class Records implements IRecords {
 		return recordList;
 	}
 
-	
+	/**
+	 * Get the updated record
+	 * 
+	 * @param recordID
+	 *            ID of the record to remove or select from the list
+	 * 
+	 * @return return the Record object
+	 * 
+	 */
+	@Override
+	public NewRecord updateRecord(String recordID, NewRecord newRecord) {
+		/*
+		 * Before fetching employee it checks whether employee ID is available
+		 */
+		if (recordID != null && !recordID.isEmpty()) {
+			/*
+			 * Update employee query will be retrieved from EmployeeQuery.xml
+			 */
+			try {
+				connection = connectionDB.getConnection();
+				preparedStatement = connection
+						.prepareStatement(QueryUtil.queryByID(CommonConstants.QUERY_ID_UPDATE_RECORD));				
+				preparedStatement.setString(CommonConstants.COLUMN_INDEX_ONE, newRecord.getStatus());
+				preparedStatement.setString(CommonConstants.COLUMN_INDEX_TWO, newRecord.getReason());
+				preparedStatement.setString(CommonConstants.COLUMN_INDEX_THREE, recordID);
+				
+				System.out.println("send" + newRecord.getReason());
+				System.out.println("send" + newRecord.getStatus());
+				/* System.out.println("Hello " +newRecord.getStatus()); */
+				
+				preparedStatement.executeUpdate();
+
+			} catch (SQLException | SAXException | IOException | ParserConfigurationException
+					| ClassNotFoundException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			} finally {
+				/*
+				 * Close prepared statement and database connectivity at the end
+				 * of transaction
+				 */
+				try {
+					if (preparedStatement != null) {
+						preparedStatement.close();
+					}
+					if (connection != null) {
+						connection.close();
+					}
+				} catch (SQLException e) {
+					log.log(Level.SEVERE, e.getMessage());
+				}
+			}
+		}
+		// Get the updated locker
+		return getRecordByID(recordID);
+	}
+
+public void SendMail(String fname, String lname, String Cname, String Status, String reason) {
+		
+		final String username = "dewki961@gmail.com";
+		final String password = "oshadi@17";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		  });
+
+		try {
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("dewki961@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse("rsamuditha0@gmail.com"));
+			message.setSubject("Testing Subject");
+			message.setText("Dear Admin,"
+				+ "\n\nFollowing custmoer has respond to the agreement.\nClient Name: " +fname+" "+ lname 
+				+"\nCompany Name: " + Cname + "\nStatus:" + Status + "\nReason:" +reason);
+
+			Transport.send(message);
+
+			System.out.println("Done");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
 
 }

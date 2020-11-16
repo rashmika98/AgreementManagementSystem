@@ -57,7 +57,7 @@ public class AddRecord extends HttpServlet {
                    return;
         }
 
-       if (filePart.getSize()>1048576 ) { //2mb
+       if (filePart.getSize()>80000000 ) { //10mb
          
           System.out.println("File size too big");
           return;
@@ -95,6 +95,8 @@ public class AddRecord extends HttpServlet {
 //		record.setPassword(request.getParameter("pWord"));
 		record.setUsername(ID + idTemp);
 		record.setPassword(ID + idTemp + request.getParameter("pNum").substring(request.getParameter("pNum").length() - 2));
+		record.setStatus("-");
+		record.setReason("-");
 		record.setFile(inputStream);
 		System.out.println(ID);
 	

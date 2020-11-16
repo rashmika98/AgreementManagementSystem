@@ -24,6 +24,8 @@ public class NewRecord {
     String username;
     String password;
     InputStream file;
+    String status;
+    String reason;
 
 	/**
 	 * @return the id
@@ -156,6 +158,30 @@ public class NewRecord {
 	 */
 	public void setFile(InputStream file) {
 		this.file = file;
+	}
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	/**
+	 * @return the reason
+	 */
+	public String getReason() {
+		return reason;
+	}
+	/**
+	 * @param reason the reason to set
+	 */
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
     
     

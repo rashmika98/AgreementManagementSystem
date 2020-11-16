@@ -1,0 +1,195 @@
+@charset "ISO-8859-1";
+
+
+.sidebar{
+  z-index: 1;
+  top: 0;
+  background: #2f323a;
+  padding-top: 30px;
+  position: absolute;
+  left: -19px;
+  width: 250px;
+  transition: 0.5s;
+  transition-property: left;
+  overflow: hidden;
+  margin-left: 16px;
+  display:block;
+  box-shadow:0 0 45px 0 rgba(0,0,0,.6);
+  margin:0 0 50px 20px;
+  border-radius:5px;
+}
+
+
+
+.profile_info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar .profile_info .profile_image{
+  width: 150px;
+  height: 150px;
+  border-radius: 150px;
+  margin-top: 50px;
+  /* margin-top: 10px; */
+  margin-bottom: 50px;
+  margin-right: 10px;
+  /* margin-bottom: 75px; */
+}
+
+.sidebar .profile_info h4{
+  color: #ccc;
+  margin-top: 0;
+  margin-bottom: 70px;
+  /* margin-bottom: 50px; */
+}
+
+.sidebar a{
+  color: #fff;
+  display: block;
+  width: 100%;
+  line-height: 70px;
+  text-decoration: none;
+  /* margin-bottom: 10px; */
+  padding-left: 40px;
+  box-sizing: border-box;
+  transition: 0.5s;
+  transition-property: background;
+}
+
+.sidebar a:hover{
+  background: #19B3D3;
+}
+
+.sidebar i{
+  padding-right: 10px;
+}
+
+.test{
+  color: #fff;
+  box-sizing: border-box;
+  margin-top: 10px; 
+  padding: 10px 0 0 65px;
+
+  writing-mode:tb-rl;
+  white-space:nowrap;
+  width: 20px;
+  height: 130px;
+  margin-left: -125px !important;
+  background: #2f323a;
+  border: 1px solid;
+  }
+
+#check:checked ~ .content .test{
+  /* width: 20px; */
+  height: 130px;
+  margin-left: -110px !important;
+}
+
+.content .togglebar label:hover{
+  background: #19B3D3;;
+}
+
+label #sidebar_btn{
+  z-index: 1;
+  color: #fff;
+  /* position: fixed; */
+  position: absolute;
+  cursor: pointer;
+  left: 30px;
+  font-size: 20px;
+  margin: 100px 220px;
+  transition: 0.5s;
+  transition-property: color;
+}
+
+
+label #sidebar_btn:hover{
+  /* color: #19B3D3; */
+}
+
+#check:checked ~ .sidebar{
+  left: -185px;
+  /* width: 200px; */
+}
+
+#check:checked ~ .sidebar a span{
+  display: none;
+}
+
+#check:checked ~ .sidebar a{
+  font-size: 20px;
+  /* padding-top: 8px;
+  padding-bottom: 8px; */
+  margin-left: 165px;
+  width: 100%;
+}
+
+
+#check:checked ~  .sidebar .icon-margin, #check:checked ~  .sidebar .space{
+  margin-bottom: 200px;
+}
+
+.content{
+  /* width: (100% - 250px);
+  margin-top: 60px; 
+  padding: 20px;*/
+  /* width: (100% - 250px); */
+  width: 1250px;
+  margin-top: 30px;
+  padding: 0 50px 10px 100px;
+  margin-left: 250px;
+  background: url(background.png) no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* height: 100vh; 
+  height: 1033px;*/
+  transition: 0.2s;
+}
+
+
+
+#check:checked ~ .content{
+  margin-left: 60px;
+  /* height: 1033px; */
+  width: 1400px;
+}
+
+#check:checked ~ .sidebar .profile_info{
+  display: none;
+}
+
+#check:checked ~ .content .head-title{
+  margin-top: -20px;
+  margin-left: 33px;
+  margin-bottom: 15px;
+}
+
+#check:checked ~ .content .content-user-dashboard{
+  margin-top: 50px;
+  margin-left: 50px;
+  width: 1220px;
+  height: 600px;
+}
+
+#check:checked ~ .content .card-dashboard{
+  margin-top: 100px;
+}
+
+#check:checked ~ .content .card1{
+  margin-left: 50px;
+}
+
+#check:checked ~ .content .fa-archive, #check:checked ~ .content .fa-dollar-sign, #check:checked ~ .content .fa-ship, #check:checked ~ .content .fa-, #check:checked ~ .content .fa-shipping-fast{
+  margin-right: 137.5px;
+}
+
+#check{
+  display: none;
+}
+
+.mobile_nav{
+  display: none;
+}

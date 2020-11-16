@@ -38,6 +38,13 @@ public interface IRecords {
 	 */
 	public ArrayList<NewRecord> getRecords();
 	
-	
+	/**
+	 * Update existing record
+	 * @param recordID
+	 * @param newRecord
+	 * 
+	 * @return
+	 */
+	public NewRecord updateRecord(String recordID, NewRecord newRecord);
 
 }
